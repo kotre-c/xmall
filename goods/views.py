@@ -52,7 +52,8 @@ class GoodListView(generics.ListCreateAPIView):
         sort = self.request.query_params.get('sort')
         priceGt = self.request.GET.get('priceGt')
         priceLte = self.request.GET.get('priceLte')
-        print(priceGt, priceLte)
+        cid = self.request.GET.get('cid')
+        # print(priceGt, priceLte)
         if sort == '1':
             queryset = queryset.order_by('salePrice')
         elif sort == '-1':
@@ -61,6 +62,8 @@ class GoodListView(generics.ListCreateAPIView):
             queryset = queryset.filter(salePrice__gt=priceGt)
         elif priceLte != '':
             queryset = queryset.filter(salePrice__let=priceLte)
+        elif cid:
+            queryset = queryset.filter(category_id=cid)
         return queryset
 
 

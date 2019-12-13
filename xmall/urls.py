@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/navlist/', include(('home.urls', 'home'), namespace='home')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('api/api-token-auth/', obtain_auth_token),
-    path('api/api-token-auth/', obtain_jwt_token),
+    # path('api/api-token-auth/', obtain_jwt_token),
 ]
 
 if settings.DEBUG:
