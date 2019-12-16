@@ -7,15 +7,6 @@ from rest_framework import serializers
 from account.models import User
 
 
-class DateEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, decimal.Decimal):
-            return float(obj)
-        elif isinstance(obj, datetime.datetime):
-            return obj.strftime('%Y-%m-%d %H:%M:%S')
-        super(DateEncoder, self).default(obj)
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -23,11 +14,20 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.FileField()
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = User
         fields = ['username', 'password']
+
+
+
+class UserAvatarSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'image']
 
 
 class Base64ImageField(serializers.ImageField):
@@ -78,3 +78,11 @@ class Base64ImageField(serializers.ImageField):
         extension = "jpg" if extension == "jpeg" else extension
 
         return extension
+
+# class DateEncoder(json.JSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, decimal.Decimal):
+#             return float(obj)
+#         elif isinstance(obj, datetime.datetime):
+#             return obj.strftime('%Y-%m-%d %H:%M:%S')
+#         super(DateEncoder, self).default(obj)

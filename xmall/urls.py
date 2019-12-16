@@ -23,12 +23,12 @@ from rest_framework_jwt.views import obtain_jwt_token
 from account.views import UserViewSet
 from xmall import settings
 
-# router = DefaultRouter()
-# router.register(r'users', UserViewSet, basename='user')
+router = DefaultRouter()
+router.register(r'user', UserViewSet, basename='user')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/', router.urls),
+    # path('api/', include(router.urls)),
     path('api-auth/', include("rest_framework.urls")),
     path('api/goods/', include(('goods.urls', 'goods'), namespace='goods')),
     path('api/user/', include(('account.urls', 'account'), namespace='account')),
