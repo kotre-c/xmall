@@ -7,29 +7,6 @@ from rest_framework import serializers
 from account.models import User
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = "__all__"
-
-
-class UserCreateSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-
-    class Meta:
-        model = User
-        fields = ['username', 'password']
-
-
-
-class UserAvatarSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField()
-
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'image']
-
-
 class Base64ImageField(serializers.ImageField):
     """
     A Django REST framework field for handling image-uploads through raw post data.
@@ -78,6 +55,28 @@ class Base64ImageField(serializers.ImageField):
         extension = "jpg" if extension == "jpeg" else extension
 
         return extension
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = "__all__"
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+
+class UserAvatarSerializer(serializers.ModelSerializer):
+    image = Base64ImageField()
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'image']
 
 # class DateEncoder(json.JSONEncoder):
 #     def default(self, obj):

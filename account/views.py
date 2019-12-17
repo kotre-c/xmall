@@ -1,16 +1,6 @@
-from django.forms import model_to_dict
-from django.http import HttpResponse
-from django.shortcuts import render
-import json
-# Create your views here.
-from django.views.generic.base import View
 from rest_framework import generics, mixins, viewsets, status
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework_jwt.settings import api_settings
-from rest_framework.mixins import CreateModelMixin
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
-
 from account.models import User
 from account.serializers import UserSerializer, UserCreateSerializer, UserAvatarSerializer
 
@@ -19,16 +9,13 @@ class UserListView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.Cr
                    generics.GenericAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    # lookup_url_kwarg = 'username'
     lookup_field = 'username'
 
     def get(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
 
 
-class UserDetailView(mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     generics.GenericAPIView):
+class UserDetailView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
@@ -39,20 +26,17 @@ class UserDetailView(mixins.RetrieveModelMixin,
         return super().partial_update(request, *args, **kwargs)
 
 
-class UserimaageView(mixins.RetrieveModelMixin,
-                     mixins.UpdateModelMixin,
-                     generics.GenericAPIView):
+class UserImgView(mixins.UpdateModelMixin, generics.GenericAPIView):
     serializer_class = UserAvatarSerializer
     queryset = User.objects.all()
-
-    def get(self, request, *args, **kwargs):
-        return super().retrieve(request, *args, **kwargs)
+    lookup_field = 'username'
 
     def patch(self, request, *args, **kwargs):
         return super().partial_update(request, *args, **kwargs)
 
 
-class UserRegistView(mixins.CreateModelMixin, generics.GenericAPIView):
+class UserRegistView(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.CreateModelMixin,
+                     generics.GenericAPIView):
     serializer_class = UserCreateSerializer
     queryset = User.objects.all()
 
