@@ -21,6 +21,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 
 from account.views import UserViewSet
+from home.views import NavListView
 from xmall import settings
 
 router = DefaultRouter()
@@ -32,7 +33,8 @@ urlpatterns = [
     path('api-auth/', include("rest_framework.urls")),
     path('api/goods/', include(('goods.urls', 'goods'), namespace='goods')),
     path('api/user/', include(('account.urls', 'account'), namespace='account')),
-    path('api/navlist/', include(('home.urls', 'home'), namespace='home')),
+    path('api/home/', include(('home.urls', 'home'), namespace='home')),
+    path('api/navlist/', NavListView.as_view()),
     path('api/address/', include(('address.urls', 'address'), namespace='address')),
 
     path('ckeditor/', include('ckeditor_uploader.urls')),
