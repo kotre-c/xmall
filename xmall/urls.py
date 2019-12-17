@@ -21,21 +21,24 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_jwt.views import obtain_jwt_token
 
 from account.views import UserViewSet
+from cart.views import CartViewSet
 from home.views import NavListView
 from xmall import settings
 
 router = DefaultRouter()
-router.register(r'user', UserViewSet, basename='user')
+# router.register(r'user', UserViewSet, basename='user')
+router.register(r'cart', CartViewSet, basename='cart')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/', include(router.urls)),
+    path('api/', include(router.urls)),
     path('api-auth/', include("rest_framework.urls")),
     path('api/goods/', include(('goods.urls', 'goods'), namespace='goods')),
     path('api/user/', include(('account.urls', 'account'), namespace='account')),
     path('api/home/', include(('home.urls', 'home'), namespace='home')),
     path('api/navlist/', NavListView.as_view()),
     path('api/address/', include(('address.urls', 'address'), namespace='address')),
+    # path('api/cart/', include(('cart.urls', 'cart'), namespace='cart')),
 
     path('ckeditor/', include('ckeditor_uploader.urls')),
     # path('api/api-token-auth/', obtain_auth_token),

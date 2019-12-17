@@ -4,7 +4,7 @@ from django.shortcuts import render
 from rest_framework import mixins, generics
 
 from address.models import Address
-from address.serizlizers import AddressSerializers
+from address.serializers import AddressSerializers
 
 
 class AddressListView(mixins.ListModelMixin,

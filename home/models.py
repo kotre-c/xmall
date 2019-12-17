@@ -43,7 +43,7 @@ class Panelcontent(models.Model):
     pic_url2 = models.ImageField(upload_to='home/', max_length=100, null=True, blank=True)
     pic_url3 = models.ImageField(upload_to='home/', max_length=100, null=True, blank=True)
     good_id = models.ForeignKey(Good, models.CASCADE, null=True, blank=True, related_name='goods')
-    panel_id = models.ForeignKey(Panel, models.CASCADE, related_name='panels')
+    panel_id = models.ForeignKey(Panel, models.CASCADE, related_name='panelContents')
 
     class Meta:
         verbose_name = '面板内容'

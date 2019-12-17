@@ -19,6 +19,9 @@ class Good(models.Model):
         verbose_name = '商品'
         verbose_name_plural = verbose_name
 
+    def __str__(self):
+        return self.productName
+
     def to_json(self):
         return {"a": self.salePrice}
 
