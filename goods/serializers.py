@@ -20,6 +20,7 @@ class GoodListSerializer(serializers.Serializer):
     subTitle = serializers.CharField()
     productImageBig = serializers.ImageField()
     created = serializers.DateField()
+    stock =serializers.IntegerField()
 
 
 class GoodImageListSerializer(serializers.ModelSerializer):

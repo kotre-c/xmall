@@ -17,6 +17,7 @@ class CartSerizlizers(serializers.Serializer):
                                             'min_value': '商品数量不能小于一',
                                             'required': '请选择商品数量'
                                         })
+    checked = serializers.BooleanField(default=True)
 
     def create(self, validated_data):
         instance, created = Cart.objects.update_or_create(**validated_data)
@@ -31,6 +32,14 @@ class CartSerizlizers(serializers.Serializer):
 
 class CartListSerizlizers(serializers.ModelSerializer):
     good = GoodListSerializer()
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
+
+
+class CartEditSerializers(serializers.ModelSerializer):
+    good = serializers.PrimaryKeyRelatedField(required=True, queryset=Good.objects.all())
 
     class Meta:
         model = Cart

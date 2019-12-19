@@ -17,25 +17,6 @@ from goods.models import Good, GoodImage
 from goods.serializers import DateEncoder, GoodListSerializer, GoodImageListSerializer, GoodDetailSerializer
 
 
-# class GoodListView(View):
-#     def get(self, request):
-#         good = Good.objects.all()
-#         json_data = serializers.serialize('json', good)
-#
-#         # return HttpResponse(json_data, content_type='application/json')
-#         # 对于json类型的响应对象，需要指定content_type为“application/json”
-#
-#         json_data = json.loads(json_data)
-#         return JsonResponse(json_data, safe=False)  # 可将一个字典或者其它的可序列化的python数据结构转换成json响应对象
-# class GoodDetailView(View):
-#     def get(self, request, pk):
-#         good = Good.objects.get(pk=pk)
-#         good = model_to_dict(good)
-#         good['productImageBig'] = 'http://127.0.0.1:8000/media/' + str(good['productImageBig'])
-#         json_data = json.dumps(good, cls=DateEncoder)
-#         return HttpResponse(json_data, content_type='application/json')
-
-
 class LargeResultsSetPagination(PageNumberPagination):  # 继承
     page_size = 20  # 记住这几个可以配置的属性的名字
     page_size_query_param = 'size'
@@ -70,5 +51,3 @@ class GoodListView(generics.ListCreateAPIView):
 class GoodDetailView(generics.RetrieveAPIView):
     queryset = Good.objects.all()
     serializer_class = GoodDetailSerializer
-
-
