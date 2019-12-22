@@ -1,3 +1,5 @@
+from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
 from rest_framework import generics, mixins, viewsets, status
 from rest_framework.response import Response
 from rest_framework_jwt.serializers import jwt_payload_handler, jwt_encode_handler
@@ -73,3 +75,15 @@ class UserViewSet(viewsets.ModelViewSet):
             return UserAvatarSerializer
         else:
             return super().get_serializer_class()
+
+#
+# class CustomBackend(ModelBackend):
+#     def authenticate(self, request, username=None, password=None, **kwargs):
+#         try:
+#             user = User.objects.get(Q(username=username) | Q(email=username) | Q(mobile=username))
+#             if user.check_password(password):
+#                 return user
+#             else:
+#                 return None
+#         except (User.DoesNotExist, User.MultipleObjectsReturned):
+#             return None

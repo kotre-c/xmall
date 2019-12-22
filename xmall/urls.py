@@ -23,11 +23,13 @@ from rest_framework_jwt.views import obtain_jwt_token
 from account.views import UserViewSet
 from cart.views import CartViewSet, CartEditView
 from home.views import NavListView
+from order.views import OrderViewSet
 from xmall import settings
 
 router = DefaultRouter()
 # router.register(r'user', UserViewSet, basename='user')
 router.register(r'cart', CartViewSet, basename='cart')
+router.register(r'order', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

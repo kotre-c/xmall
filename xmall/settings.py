@@ -192,3 +192,7 @@ JWT_AUTH = {
     # token前缀
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }
+
+# AUTHENTICATION_BACKENDS = (
+#     'account.view.CustomBackend'
+# )

@@ -20,7 +20,7 @@ class GoodListSerializer(serializers.Serializer):
     subTitle = serializers.CharField()
     productImageBig = serializers.ImageField()
     created = serializers.DateField()
-    stock =serializers.IntegerField()
+    stock = serializers.IntegerField()
 
 
 class GoodImageListSerializer(serializers.ModelSerializer):
@@ -35,3 +35,9 @@ class GoodDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Good
         fields = "__all__"
+
+
+class GoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Good
+        fields = ["id", "salePrice", "productName", 'productImageBig']

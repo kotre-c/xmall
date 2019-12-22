@@ -27,6 +27,6 @@ class Cart(models.Model):
     objects = CartManager()
 
     class Meta:
-        unique_together = ['user','good']
+        unique_together = ['user', 'good']
         verbose_name = '购物车'
         verbose_name_plural = verbose_name
